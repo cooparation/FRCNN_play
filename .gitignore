@@ -102,3 +102,4 @@ MANIFEST-*
 examples/cifar10/*lmdb*
 examples/cifar10/*mat*
 VOCdevkit/*
+label/*
