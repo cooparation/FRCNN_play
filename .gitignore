@@ -101,5 +101,5 @@ MANIFEST-*
 # some new files add by dxy
 examples/cifar10/*lmdb*
 examples/cifar10/*mat*
-VOCdevkit/*
-labels/*
+/labels
+/VOCdevkit

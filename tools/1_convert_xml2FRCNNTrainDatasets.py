@@ -2,6 +2,7 @@
 import xml.etree.ElementTree as ET
 import pickle
 import os
+import sys
 from os import listdir, getcwd
 from collections import OrderedDict
 from random import shuffle
@@ -111,8 +112,15 @@ def getFRCNNTrainTestDatasets(jpegImg_Dir, xmlLabel_Dir, xmlLists):
     fp.close()
 
 if __name__ == '__main__':
-    xmlLabel_Dir = '/apps/liusj/testLabelImgs/Annotations'
-    jpegImg_Dir = '/apps/liusj/testLabelImgs/JPEGImages'
+    rootDir = '/apps/liusj/testLabelImgs'
+    if len(sys.argv) != 2:
+        print 'Usage:', sys.argv[0], 'jpgxmlRootDir'
+        print 'Note: jpgxmlRootDir has JPEGImages Annotations'
+        print 'Use default', rootDir
+    else:
+        rootDir = sys.argv[1]
+    jpegImg_Dir = rootDir + '/' + 'JPEGImages'
+    xmlLabel_Dir = rootDir + '/' + 'Annotations'
 
     xmlLists = ['testLists.txt', 'trainLists.txt']
 
