@@ -41,8 +41,8 @@ def getTrainTestLists(jpegImg_Dir, xmlLabel_Dir, xmlLists):
 
 
 def getFRCNNTrainTestDatasets(jpegImg_Dir, xmlLabel_Dir, xmlLists):
-    testFileName = 'voc2007.test'
-    trainValFileName = 'voc2007.trainval'
+    testFileName = 'det.test'
+    trainValFileName = 'det.trainval'
     trainTestSets = [testFileName, trainValFileName]
 
     class_dic = OrderedDict()
@@ -83,7 +83,7 @@ def getFRCNNTrainTestDatasets(jpegImg_Dir, xmlLabel_Dir, xmlLists):
                     cls_id = class_dic[cls][0]
                     class_dic[cls][1] += 1
                 else:
-                    cls_id = len(class_dic)
+                    cls_id = len(class_dic) + 1 # start from 1
                     class_dic[cls] = [cls_id, 1]
                 xmlbox = obj.find('bndbox')
                 bb = [xmlbox.find('xmin').text,\
