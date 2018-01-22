@@ -88,7 +88,11 @@ int main(int argc, char** argv){
       cv::Mat ori ; 
       image.convertTo(ori, CV_32FC3);
       caffe::Frcnn::vis_detections(ori, cur_res, caffe::Frcnn::LoadVocClass() );
-      std::string name = out_dir+images[index];
+
+      std::string tmpName = images[index];
+      // remove '.jpg'
+      tmpName.replace(tmpName.end() - 4, tmpName.end(), "");
+      std::string name = out_dir + "/" + tmpName;
       char xx[100];
       sprintf(xx, "%s_%s.jpg", name.c_str(), caffe::Frcnn::GetClassName(caffe::Frcnn::LoadVocClass(),label).c_str());
       cv::imwrite(std::string(xx), ori);

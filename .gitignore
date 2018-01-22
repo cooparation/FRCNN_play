@@ -103,3 +103,4 @@ examples/cifar10/*lmdb*
 examples/cifar10/*mat*
 /labels
 /VOCdevkit
+./output/*

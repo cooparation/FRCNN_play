@@ -9,12 +9,12 @@ else
     gpu=$1
 fi
 
-BUILD=./demo_frcnn_api.bin
+BUILD=./build/examples/FRCNN/demo_frcnn_api.bin
 ModelFile=./zf/test.prototxt
 CaffeModel=models/FRCNN/zf_faster_rcnn_final.caffemodel
 ConfigFile=./zf/voc_config.json
 
-ImageRootDir=/apps/liusj/datasets/foodIDDataSets/trainSets/01-吐司/加了芝士/烤盘带锡纸/一层/
+ImageRootDir=./images/
 
 OutputDir=output/FRCNN/results/
 

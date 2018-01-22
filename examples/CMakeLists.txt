@@ -9,14 +9,14 @@ foreach(source_file ${examples_srcs})
   get_filename_component(folder ${path} NAME_WE)
 
   add_executable(${name} ${source_file})
-  target_link_libraries(${name} FRCNN_api ${Caffe_LINK})
-  caffe_default_properties(${name})
+  target_link_libraries(${name} FRCNN_api ${Caffe_LIBRARIES})
+  #caffe_default_properties(${name})
 
   # set back RUNTIME_OUTPUT_DIRECTORY
   set_target_properties(${name} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/examples/${folder}")
 
-  caffe_set_solution_folder(${name} examples)
+#caffe_set_solution_folder(${name} examples)
 
   # install
   install(TARGETS ${name} DESTINATION bin)

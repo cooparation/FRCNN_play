@@ -11,7 +11,7 @@ fi
 
 pid=$$
 
-BUILD=./test_frcnn.bin
+BUILD=./build/examples/FRCNN/test_frcnn.bin
 
 ModelFile=./zf/test.prototxt
 CaffeModel=models/FRCNN/zf_faster_rcnn_final.caffemodel

@@ -9,7 +9,7 @@ else
     gpu=$1
 fi
 
-BUILD=build/examples/FRCNN/demo_frcnn_api.bin
+BUILD=./demo_frcnn_api.bin
 
 $BUILD --gpu $gpu \
        --model models/FRCNN/vgg16/test.prototxt \

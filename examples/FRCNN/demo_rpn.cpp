@@ -20,6 +20,8 @@ DEFINE_string(image_root, "",
     "Optional;Test images root directory."); 
 DEFINE_string(out_file, "",
     "Optional;Output images file."); 
+DEFINE_string(out_dir, "",
+    "Optional;Output images file dir"); 
 
 inline int INT(float x) { return int(x); };
 inline std::string FloatToString(float x) { char A[100]; sprintf(A,"%.8f",x); return std::string(A);};
@@ -39,7 +41,8 @@ int main(int argc, char** argv){
       "  --default_c    file    Default Config File\n"
       "  --image_list   file    input image list\n"
       "  --image_root   file    input image dir\n"
-      "  --out_file     file    output amswer file");
+      "  --out_file     file    output amswer file\n"
+      "  --out_dir      file    output images dir");
   // Run tool or show usage.
   caffe::GlobalInit(&argc, &argv);
   CHECK( FLAGS_gpu.size() == 0 || FLAGS_gpu.size() == 1 || (FLAGS_gpu.size()==2&&FLAGS_gpu=="-1")) << "Can only support one gpu or none or -1(for cpu)";
@@ -65,6 +68,7 @@ int main(int argc, char** argv){
   std::string image_list = FLAGS_image_list.c_str();
   std::string image_root = FLAGS_image_root.c_str();
   std::string out_file = FLAGS_out_file.c_str();
+  std::string out_dir = FLAGS_out_dir.c_str();
 
   API::Set_Config( default_config_file );
   API::Rpn_Det detector(proto_file, model_file);
@@ -72,6 +76,7 @@ int main(int argc, char** argv){
 
   LOG(INFO) << "image list is  : " << image_list;
   LOG(INFO) << "output file is : " << out_file;
+  LOG(INFO) << "output dir is : " << out_dir;
   std::ifstream infile(image_list.c_str());
   std::ofstream otfile(out_file.c_str());
   API::DataPrepare data_load;
@@ -93,6 +98,26 @@ int main(int argc, char** argv){
     }
     LOG(INFO) << "Handle " << ++count << " th image : " << image << " , Left " << results.size() << " proposals";
 
+    for (int label = 0; label < caffe::Frcnn::FrcnnParam::n_classes; label++) {
+      std::vector<caffe::Frcnn::BBox<float> > cur_res;
+      for (size_t idx = 0; idx < results.size(); idx++) {
+        if (results[idx].id == label) {
+          if (results[idx].confidence >= 0.95){
+            cur_res.push_back( results[idx] );
+          }
+        }
+      }
+      if (cur_res.size() == 0) continue;
+      cv::Mat ori ;
+      cv_image.convertTo(ori, CV_32FC3);
+      caffe::Frcnn::vis_detections(ori, cur_res, caffe::Frcnn::LoadVocClass() );
+      // remove '.jpg'
+      image.replace(image.end() - 4, image.end(), "");
+      std::string name = out_dir+ "/" + image;
+      char xx[100];
+      sprintf(xx, "%s_%s.jpg", name.c_str(), caffe::Frcnn::GetClassName(caffe::Frcnn::LoadVocClass(),label).c_str());
+      cv::imwrite(std::string(xx), ori);
+    }
   }
   infile.close();
   otfile.close();
