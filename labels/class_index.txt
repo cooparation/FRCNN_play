@@ -1,2 +1,1 @@
-door                     0
-sofa                     1
+toast                    1

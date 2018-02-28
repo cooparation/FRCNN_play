@@ -56,11 +56,11 @@ because the regression value is normalized during training and we should recover
 Shells and prototxts for different models are listed in the `examples/FRCNN` and `models/FRCNN`
 
 ## QA
-- When Get collections import error, it often comes from the conflict bettewn matplotlib and python2.7, what you could do is just to remove the matplotlib/collections.py
+- When Get collections import error, it often comes from the conflict bettewn matplotlib and python2.7, what you could do is just to remove the matplotlib/collections.py or rename it
 
 ## Two-Stream Convolutional Networks for Action Recognition in Video
 
-See codes `src/caffe/ACTION_REC` and `include/caffe/ACTION_REC`
+See codes `caffe-faster-rcnn/src/caffe/ACTION_REC` and `caffe-faster-rcnn/include/caffe/ACTION_REC`
 ## Acknowlegement
 I greatly thank [D-X-Y](https://github.com/D-X-Y/caffe-faster-rcnn)
 And I would like to thank all the authors of every network
